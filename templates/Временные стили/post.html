@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог | Как я научился программировать за 30 дней</title>
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #252525;
+            --accent: #3a3a3a;
+            --text: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --category-tech: #4a6fa5;
+            --error: #8b2a2a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: var(--secondary);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-actions a {
+            margin-left: 1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .admin-panel {
+            background-color: #5a1a1a;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .post-header {
+            margin-bottom: 2rem;
+        }
+        
+        .post-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            background-color: var(--category-tech);
+        }
+        
+        .post-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .post-meta span {
+            margin-right: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .post-meta svg {
+            margin-right: 0.5rem;
+        }
+        
+        .post-content {
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+        
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .like-btn {
+            display: flex;
+            align-items: center;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            color: var(--text);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .like-btn:hover {
+            background-color: #4a4a4a;
+        }
+        
+        .like-btn svg {
+            margin-right: 0.5rem;
+        }
+        
+        .comments-section {
+            margin-top: 3rem;
+        }
+        
+        .comments-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .comment-form {
+            margin-bottom: 2rem;
+            background-color: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 1rem;
+            min-height: 100px;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+        
+        .comment-form button {
+            background-color: var(--category-tech);
+            color: var(--text);
+            border: none;
+            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .comment-form button:hover {
+            background-color: #3a5a8a;
+        }
+        
+        .comment {
+            background-color: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .comment-author {
+            font-weight: 500;
+        }
+        
+        .comment-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .comment-text {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .comment-action {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .comment-action svg {
+            margin-right: 0.3rem;
+        }
+        
+        .comment-action:hover {
+            color: var(--text);
+        }
+        
+        .comment-admin-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+        }
+        
+        .comment-admin-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .delete-comment {
+            background-color: var(--error);
+            color: white;
+        }
+        
+        .ban-user {
+            background-color: #5a1a1a;
+            color: white;
+        }
+        
+        .comment-admin-btn:hover {
+            opacity: 0.8;
+        }
+        
+        .replies {
+            margin-top: 1.5rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--accent);
+        }
+        
+        .reply-form {
+            margin-top: 1rem;
+            background-color: var(--secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .reply-form.active {
+            display: block;
+        }
+        
+        .reply-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--accent);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 0.9rem;
+            min-height: 80px;
+            margin-bottom: 0.8rem;
+            resize: vertical;
+        }
+        
+        .reply-form button {
+            background-color: var(--category-tech);
+            color: var(--text);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .reply-form button:hover {
+            background-color: #3a5a8a;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">MyBlog</a>
+            <div class="user-actions">
+                <a href="#" class="admin-panel">Админ-панель</a>
+                <a href="#">Профиль</a>
+                <a href="#">Выйти</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <article>
+            <div class="post-header">
+                <span class="post-category">Технологии</span>
+                <h1 class="post-title">Как я научился программировать за 30 дней</h1>
+                <div class="post-meta">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Администратор
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        15.05.2023
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        12 комментариев
+                    </span>
+                </div>
+            </div>
+            
+            <div class="post-content">
+                <p>Когда я решил научиться программировать, я не представлял, насколько это изменит мою жизнь. Все началось с простого желания создать свой собственный сайт, но в итоге я открыл для себя целый новый мир возможностей.</p>
+                
+                <p>Первые дни были самыми сложными. Я установил редактор кода, скачал несколько учебников и начал с основ HTML и CSS. Казалось, что все это слишком сложно, но я решил не сдаваться.</p>
+                
+                <p>К концу первой недели я уже мог создавать простые веб-страницы. Это дало мне мотивацию продолжать. Я начал изучать JavaScript и понял, что программирование - это не просто написание кода, а особый способ мышления.</p>
+            </div>
+            
+            <div class="post-actions">
+                <button class="like-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                    </svg>
+                    Нравится (42)
+                </button>
+            </div>
+            
+            <div class="comments-section">
+                <h2 class="comments-title">Комментарии (12)</h2>
+                
+                <form class="comment-form">
+                    <textarea placeholder="Напишите ваш комментарий..." required></textarea>
+                    <button type="submit">Отправить комментарий</button>
+                </form>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Иван Петров</span>
+                        <span class="comment-date">16.05.2023</span>
+                    </div>
+                    <p class="comment-text">Отличная статья! Я тоже хочу научиться программировать, но пока не знаю, с чего начать. Можешь посоветовать конкретные ресурсы для новичков?</p>
+                    <div class="comment-actions">
+                        <button class="comment-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            Нравится (5)
+                        </button>
+                        <button class="comment-action reply-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 17 20 12 15 7"></polyline>
+                                <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                            </svg>
+                            Ответить
+                        </button>
+                    </div>
+                    
+                    <div class="comment-admin-actions">
+                        <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                        <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                    </div>
+                    
+                    <div class="reply-form">
+                        <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                        <button type="submit">Отправить ответ</button>
+                    </div>
+                    
+                    <div class="replies">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Администратор</span>
+                                <span class="comment-date">16.05.2023</span>
+                            </div>
+                            <p class="comment-text">Иван, рекомендую начать с freeCodeCamp или Codecademy. Они отлично подходят для новичков и дают практические задания.</p>
+                            <div class="comment-actions">
+                                <button class="comment-action">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                    </svg>
+                                    Нравится (3)
+                                </button>
+                                <button class="comment-action reply-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 17 20 12 15 7"></polyline>
+                                        <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                                    </svg>
+                                    Ответить
+                                </button>
+                            </div>
+                            
+                            <div class="comment-admin-actions">
+                                <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                                <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                            </div>
+                            
+                            <div class="reply-form">
+                                <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                                <button type="submit">Отправить ответ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Мария Смирнова</span>
+                        <span class="comment-date">17.05.2023</span>
+                    </div>
+                    <p class="comment-text">Интересный опыт! А сколько часов в день ты уделял обучению?</p>
+                    <div class="comment-actions">
+                        <button class="comment-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            Нравится (2)
+                        </button>
+                        <button class="comment-action reply-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 17 20 12 15 7"></polyline>
+                                <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                            </svg>
+                            Ответить
+                        </button>
+                    </div>
+                    
+                    <div class="comment-admin-actions">
+                        <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                        <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                    </div>
+                    
+                    <div class="reply-form">
+                        <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                        <button type="submit">Отправить ответ</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">© 2023 MyBlog. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.querySelectorAll('.reply-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const replyForm = btn.closest('.comment').querySelector('.reply-form');
+                replyForm.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
