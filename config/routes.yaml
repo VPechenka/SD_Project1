@@ -3,3 +3,49 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# << Post Routes >>
+
+getPostList:
+    path: /
+    controller: App\Controller\PostController::getList
+    methods: [ GET ]
+
+getPostForm:
+    path: /post/new
+    controller: App\Controller\PostController::getForm
+    methods: [ GET ]
+
+postPost:
+    path: /post/new
+    controller: App\Controller\PostController::post
+    methods: [ POST ]
+
+getPOST:
+    path: /post/{slug}
+    controller: App\Controller\PostController::get
+    methods: [ GET ]
+
+# << Comment Routes >>
+
+postComment:
+    path: /post/{slug}
+    controller: App\Controller\CommentController::post
+    methods: [ POST ]
+
+# << User Routes >>
+
+getUserRegister:
+    path: /user/register
+    controller: App\Controller\UserController::register
+    methods: [ GET, POST ]
+
+getUserLogin:
+    path: /user/login
+    controller: App\Controller\UserController::login
+    methods: [ GET, POST ]
+
+getUserLogout:
+    path: /user/logout
+    controller: App\Controller\UserController::logout
+    methods: [ GET ]

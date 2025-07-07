@@ -1,20 +1,29 @@
 <header>
     <div class="header-container">
-        <a href="#" class="logo">
+        <a href="{{ path("getPostList") }}" class="logo">
             DarkBlog
         </a>
         <div class="user-actions">
-            <a href="#" class="admin-panel">
-                Админ-панель
-            </a>
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path("getPostForm") }}" class="admin-panel">
+                    Создать пост
+                </a>
+            {% endif %}
 
-            <a href="#">
-                Профиль
-            </a>
+            {% if is_granted("ROLE_USER") %}
+                <a href="{{ path("getUserLogout") }}">
+                    Выйти
+                </a>
+            {% else %}
+                <a href="{{ path("getUserRegister") }}">
+                    Регистрация
+                </a>
 
-            <a href="#">
-                Выйти
-            </a>
+                <a href="{{ path("getUserLogin") }}">
+                    Войти
+                </a>
+            {% endif %}
+
         </div>
     </div>
 </header>

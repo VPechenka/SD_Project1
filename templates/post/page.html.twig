@@ -1,0 +1,197 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Пост
+{% endblock %}
+
+{% block body %}
+    <main>
+        <article>
+            <div class="post-header">
+                <span class="post-category">Технологии</span>
+                <h1 class="post-title">Как я научился программировать за 30 дней</h1>
+                <div class="post-meta">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Администратор
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        15.05.2023
+                    </span>
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        12 комментариев
+                    </span>
+                </div>
+            </div>
+
+            <div class="post-content">
+                <p>Когда я решил научиться программировать, я не представлял, насколько это изменит мою жизнь. Все
+                    началось с простого желания создать свой собственный сайт, но в итоге я открыл для себя целый новый
+                    мир возможностей.</p>
+
+                <p>Первые дни были самыми сложными. Я установил редактор кода, скачал несколько учебников и начал с
+                    основ HTML и CSS. Казалось, что все это слишком сложно, но я решил не сдаваться.</p>
+
+                <p>К концу первой недели я уже мог создавать простые веб-страницы. Это дало мне мотивацию продолжать. Я
+                    начал изучать JavaScript и понял, что программирование - это не просто написание кода, а особый
+                    способ мышления.</p>
+            </div>
+
+            <div class="post-actions">
+                <button class="post-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                    </svg>
+                    Нравится (42)
+                </button>
+            </div>
+
+            <div class="comments-section">
+                <h2 class="comments-title">Комментарии (12)</h2>
+
+                <form class="comment-form">
+                    <textarea placeholder="Напишите ваш комментарий..." required></textarea>
+                    <button type="submit" class="post-btn">Отправить комментарий</button>
+                </form>
+
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Иван Петров</span>
+                        <span class="comment-date">16.05.2023</span>
+                    </div>
+                    <p class="comment-text">Отличная статья! Я тоже хочу научиться программировать, но пока не знаю, с
+                        чего начать. Можешь посоветовать конкретные ресурсы для новичков?</p>
+                    <div class="comment-actions">
+                        <button class="comment-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            Нравится (5)
+                        </button>
+                        <button class="comment-action reply-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 17 20 12 15 7"></polyline>
+                                <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                            </svg>
+                            Ответить
+                        </button>
+                    </div>
+
+                    <div class="comment-admin-actions">
+                        <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                        <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                    </div>
+
+                    <div class="reply-form">
+                        <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                        <button type="submit">Отправить ответ</button>
+                    </div>
+
+                    <div class="replies">
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Администратор</span>
+                                <span class="comment-date">16.05.2023</span>
+                            </div>
+                            <p class="comment-text">Иван, рекомендую начать с freeCodeCamp или Codecademy. Они отлично
+                                подходят для новичков и дают практические задания.</p>
+                            <div class="comment-actions">
+                                <button class="comment-action">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                    </svg>
+                                    Нравится (3)
+                                </button>
+                                <button class="comment-action reply-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="15 17 20 12 15 7"></polyline>
+                                        <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                                    </svg>
+                                    Ответить
+                                </button>
+                            </div>
+
+                            <div class="comment-admin-actions">
+                                <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                                <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                            </div>
+
+                            <div class="reply-form">
+                                <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                                <button type="submit">Отправить ответ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Мария Смирнова</span>
+                        <span class="comment-date">17.05.2023</span>
+                    </div>
+                    <p class="comment-text">Интересный опыт! А сколько часов в день ты уделял обучению?</p>
+                    <div class="comment-actions">
+                        <button class="comment-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            Нравится (2)
+                        </button>
+                        <button class="comment-action reply-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 17 20 12 15 7"></polyline>
+                                <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                            </svg>
+                            Ответить
+                        </button>
+                    </div>
+
+                    <div class="comment-admin-actions">
+                        <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                        <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                    </div>
+
+                    <div class="reply-form">
+                        <textarea placeholder="Напишите ваш ответ..." required></textarea>
+                        <button type="submit" class="post-btn">Отправить ответ</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        document.querySelectorAll('.reply-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const replyForm = btn.closest('.comment').querySelector('.reply-form');
+                replyForm.classList.toggle('active');
+            });
+        });
+    </script>
+{% endblock %}

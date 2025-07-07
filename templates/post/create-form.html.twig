@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Создание поста
+{% endblock %}
+
+{% block body %}
+    <main>
+        <h1 class="page-title">Создать новый пост</h1>
+
+        {{ form_start(form, {"attr": {"class": "post-form"}}) }}
+
+        <div class="form-group">
+            <label for="post-title">
+                Заголовок поста
+            </label>
+
+            {{ form_widget(form.title) }}
+        </div>
+
+        <div class="form-group">
+            <label for="post-category">
+                Категория
+            </label>
+
+            {{ form_widget(form.category) }}
+        </div>
+
+        <div class="form-group">
+            <label for="post-content">
+                Содержание поста
+            </label>
+
+            {{ form_widget(form.text) }}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Опубликовать</button>
+        </div>
+
+        {{ form_end(form) }}
+
+        <div id="notification" class="notification">
+            <span class="notification-icon">✓</span>
+            <span class="notification-message">Пост успешно опубликован!</span>
+        </div>
+    </main>
+{% endblock %}
