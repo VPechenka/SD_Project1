@@ -21,16 +21,36 @@ postPost:
     controller: App\Controller\PostController::post
     methods: [ POST ]
 
-getPOST:
-    path: /post/{slug}
+getPost:
+    path: /post/{post_id}
     controller: App\Controller\PostController::get
     methods: [ GET ]
 
+postPostLike:
+    path: /post/{post_id}/like
+    controller: App\Controller\PostController::postLike
+    methods: [ POST ]
+
 # << Comment Routes >>
 
-postComment:
-    path: /post/{slug}
-    controller: App\Controller\CommentController::post
+postPostComment:
+    path: /post/{post_id}
+    controller: App\Controller\CommentController::postPost
+    methods: [ POST ]
+
+postCommentComment:
+    path: /post/{post_id}/{comment_id}
+    controller: App\Controller\CommentController::postComment
+    methods: [ POST ]
+
+postLikeComment:
+    path: /post/{post_id}/{comment_id}/like
+    controller: App\Controller\CommentController::postLike
+    methods: [ POST ]
+
+postDeleteComment:
+    path: /admin/comment/{comment_id}/delete
+    controller: App\Controller\CommentController::postDelete
     methods: [ POST ]
 
 # << User Routes >>
@@ -49,3 +69,7 @@ getUserLogout:
     path: /user/logout
     controller: App\Controller\UserController::logout
     methods: [ GET ]
+
+postBlockUser:
+    path: /admin/user/{user_id}/block
+    controller: App\Controller\UserController::block

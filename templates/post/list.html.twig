@@ -15,79 +15,50 @@
         </div>
 
         <div class="posts-grid">
-            <article class="post-card">
-                <span class="post-category category-tech">Технологии</span>
-                <h2 class="post-title">Как я научился программировать за 30 дней</h2>
-                <p class="post-excerpt">В этой статье я расскажу о своем опыте изучения программирования с нуля всего за
-                    один месяц...</p>
-                <div class="post-meta">
-                    <span>15.05.2023</span>
-                    <span>12 комментариев</span>
-                </div>
-            </article>
+            {% for post in posts %}
+                <a class="post-card" href="{{ path("getPost", {"post_id": post.id}) }}">
+                    {% if post.categoryTitle == "Технологии" %}
+                        <span class="post-category category-tech">
+                            Технологии
+                        </span>
+                    {% elseif post.categoryTitle == "Жизнь" %}
+                        <span class="post-category category-life">
+                            Жизнь
+                        </span>
+                    {% elseif post.categoryTitle == "Путешествия" %}
+                        <span class="post-category category-travel">
+                            Путешествия
+                        </span>
+                    {% elseif post.categoryTitle == "Еда" %}
+                        <span class="post-category category-food">
+                            Еда
+                        </span>
+                    {% endif %}
 
-            <article class="post-card">
-                <span class="post-category category-life">Жизнь</span>
-                <h2 class="post-title">Мой распорядок дня для продуктивности</h2>
-                <p class="post-excerpt">После многих лет проб и ошибок я нашел идеальный распорядок дня, который
-                    помогает мне оставаться продуктивным...</p>
-                <div class="post-meta">
-                    <span>10.05.2023</span>
-                    <span>8 комментариев</span>
-                </div>
-            </article>
+                    <h2 class="post-title">
+                        {{ post.title }}
+                    </h2>
 
-            <article class="post-card">
-                <span class="post-category category-travel">Путешествия</span>
-                <h2 class="post-title">Топ-5 мест, которые стоит посетить в Японии</h2>
-                <p class="post-excerpt">Япония - удивительная страна с богатой культурой. Вот мои любимые места, которые
-                    я рекомендую посетить...</p>
-                <div class="post-meta">
-                    <span>05.05.2023</span>
-                    <span>25 комментариев</span>
-                </div>
-            </article>
+                    <div class="post-meta">
+                    <span>
+                        {{ post.createdAt|date('d.m.Y') }}
+                    </span>
 
-            <article class="post-card">
-                <span class="post-category category-food">Еда</span>
-                <h2 class="post-title">Рецепт идеального итальянского паста карбонара</h2>
-                <p class="post-excerpt">После поездки в Рим я научился готовить настоящую карбонару по традиционному
-                    рецепту...</p>
-                <div class="post-meta">
-                    <span>28.04.2023</span>
-                    <span>18 комментариев</span>
-                </div>
-            </article>
+                        <span>
+                        Лайки: {{ post.likesCount }}
+                    </span>
 
-            <article class="post-card">
-                <span class="post-category category-tech">Технологии</span>
-                <h2 class="post-title">Обзор нового фреймворка для веб-разработки</h2>
-                <p class="post-excerpt">Недавно вышел новый фреймворк, который обещает изменить подход к веб-разработке.
-                    Вот мой опыт его использования...</p>
-                <div class="post-meta">
-                    <span>20.04.2023</span>
-                    <span>14 комментариев</span>
-                </div>
-            </article>
+                        <span>
+                        Комментарии: {{ post.commentsCount }}
+                    </span>
+                    </div>
+                </a>
+            {% endfor %}
 
-            <article class="post-card">
-                <span class="post-category category-life">Жизнь</span>
-                <h2 class="post-title">Как избавиться от прокрастинации: 5 рабочих методов</h2>
-                <p class="post-excerpt">Прокрастинация - бич современного общества. Вот методы, которые реально помогли
-                    мне с ней справиться...</p>
-                <div class="post-meta">
-                    <span>15.04.2023</span>
-                    <span>30 комментариев</span>
-                </div>
-            </article>
-        </div>
-
-        <div class="pagination">
-            <button class="pagination-btn active">1</button>
-            <button class="pagination-btn">2</button>
-            <button class="pagination-btn">3</button>
-            <button class="pagination-btn">4</button>
-            <button class="pagination-btn">5</button>
+{#            <div class="pagination">#}
+{#                <button class="pagination-btn"><<</button>#}
+{#                <button class="pagination-btn">>></button>#}
+{#            </div>#}
         </div>
     </main>
 {% endblock %}

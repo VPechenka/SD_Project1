@@ -16,28 +16,42 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-//    /**
-//     * @return Comment[] Returns an array of Comment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Comment[] Returns an array of Comment objects
+     */
+    public function findByPostId(int $postId): array
+    {
+        $comments = $this->createQueryBuilder("c")
+            ->select([
+                "c.id",
+                "c.text",
+                "c.createdAt",
+                "c.isDeleted",
+                "u.username as username",
+                "u.id as userId",
+                "u.isBlocked as userIsBlocked",
+                "COUNT(DISTINCT l.id) as likesCount",
+                "IDENTITY(c.parent) as parentId"
+            ])
+            ->leftJoin("c.user", "u")
+            ->leftJoin("c.userLikes", "l")
+            ->where("c.post = :postId")
+            ->setParameter("postId", $postId)
+            ->groupBy("c.id", "u.username")
+            ->getQuery()
+            ->getResult();
 
-//    public function findOneBySomeField($value): ?Comment
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $tree = [];
+
+        foreach ($comments as $comment) {
+            $tree[$comment["id"]] = $comment;
+            $tree[$comment["id"]]["children"] = [];
+
+            if (!empty($comment["parentId"])) {
+                $tree[$comment["parentId"]]["children"][] = $comment["id"];
+            }
+        }
+
+        return $tree;
+    }
 }

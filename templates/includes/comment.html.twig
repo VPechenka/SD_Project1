@@ -1,0 +1,73 @@
+<div class="comment">
+    <div class="comment-header">
+            <span class="comment-author">
+                {{ comment.username }}
+            </span>
+
+        <span class="comment-date">
+                {{ comment.createdAt|date("d.m.Y H:i") }}
+            </span>
+    </div>
+
+    <p class="comment-text">
+        {% if comment.isDeleted %}
+            *** Данный комментарий удален администратором ***
+        {% elseif comment.userIsBlocked %}
+            *** Данный пользователь заблокирован администратором ***
+        {% else %}
+            {{ comment.text }}
+        {% endif %}
+    </p>
+    {% if not app.user.isBlocked %}
+        <div class="comment-actions">
+            <button class="comment-action">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                </svg>
+                Нравится ({{ comment.likesCount }})
+            </button>
+
+            <button class="comment-action reply-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 17 20 12 15 7"></polyline>
+                    <path d="M4 18v-2a4 4 0 0 1 4-4h12"></path>
+                </svg>
+                Ответить
+            </button>
+        </div>
+    {% endif %}
+
+    {% if is_granted("ROLE_ADMIN") %}
+        {% if not comment.userIsBlocked %}
+            <div class="comment-admin-actions">
+                {% if not comment.isDeleted %}
+                    <form action="{{ path("postDeleteComment",  {"comment_id":  comment.id}) }}" method="POST">
+                        <button class="comment-admin-btn delete-comment">Удалить комментарий</button>
+                    </form>
+                {% endif %}
+                <form action="{{ path("postBlockUser", {"user_id": comment.userId}) }}" method="POST">
+                    <button class="comment-admin-btn ban-user">Заблокировать пользователя</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="reply-form">
+        <form class="comment-form mini-comment" method="POST"
+              action="{{ path("postCommentComment", {"post_id": post_id, "comment_id": comment.id}) }}">
+            <textarea name="text" placeholder="Напишите ваш ответ..." required></textarea>
+            <button type="submit" class="post-btn">Отправить</button>
+        </form>
+    </div>
+
+    {% if comment['children']|length > 0 %}
+        <div class="replies">
+            {% for subcomment in comment['children'] %}
+                {% include "includes/comment.html.twig" with {comments: comments, comment: comments[subcomment], post_id: post_id} only %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

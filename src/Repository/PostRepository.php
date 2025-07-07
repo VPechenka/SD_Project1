@@ -16,6 +16,50 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findWithCountStats(): array {
+        return $this->createQueryBuilder('p')
+            ->select([
+                'p.id',
+                'p.title',
+                'p.text',
+                'p.createdAt',
+                'c.title as categoryTitle',
+                'COUNT(DISTINCT l.id) as likesCount',
+                'COUNT(DISTINCT com.id) as commentsCount'
+            ])
+            ->leftJoin('p.category', 'c')
+            ->leftJoin('p.userLikes', 'l')
+            ->leftJoin('p.comments', 'com')
+            ->groupBy('p.id')
+            ->getQuery()->getResult();
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findOneWithCountStats(int $id): array {
+        return $this->createQueryBuilder('p')
+            ->select([
+                'p.id',
+                'p.title',
+                'p.text',
+                'p.createdAt',
+                'c.title as categoryTitle',
+                'COUNT(DISTINCT l.id) as likesCount',
+                'COUNT(DISTINCT com.id) as commentsCount'
+            ])
+            ->leftJoin('p.category', 'c')
+            ->leftJoin('p.userLikes', 'l')
+            ->leftJoin('p.comments', 'com')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->groupBy('p.id')
+            ->getQuery()->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

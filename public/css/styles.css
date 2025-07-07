@@ -120,6 +120,8 @@ main {
     border-radius: 8px;
     padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    text-decoration-color: white;
 }
 
 .post-card:hover {
@@ -128,6 +130,7 @@ main {
 }
 
 .post-category {
+    text-decoration: none;
     display: inline-block;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
@@ -154,6 +157,7 @@ main {
 .post-title {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
+    text-decoration: none;
 }
 
 .post-excerpt {
@@ -167,6 +171,7 @@ main {
     justify-content: space-between;
     color: var(--text-secondary);
     font-size: 0.9rem;
+    text-decoration: none;
 }
 
 /* Pagination */
@@ -255,6 +260,11 @@ main {
     background-color: var(--secondary);
     padding: 1.5rem;
     border-radius: 8px;
+}
+
+.mini-comment {
+    margin-bottom: 0;
+    padding: 0;
 }
 
 .comment-form textarea {
@@ -357,7 +367,6 @@ main {
 .reply-form {
     margin-top: 1rem;
     background-color: var(--secondary);
-    padding: 1rem;
     border-radius: 8px;
     display: none;
 }

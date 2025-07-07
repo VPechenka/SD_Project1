@@ -44,6 +44,13 @@ final class UserController extends AbstractController
         AuthenticationUtils $authenticationUtils
     ): Response
     {
+        $user = $this->getUser();
+
+        if ($user and $user->isBlocked()) {
+            $this->addFlash('error', 'Ваш аккаунт заблокирован.');
+            return $this->redirectToRoute('getUserLogin');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -56,5 +63,25 @@ final class UserController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    public function block(
+        string                 $user_id,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        if (filter_var($user_id, FILTER_VALIDATE_INT) === false)
+            return new Response(
+                'Неправильные входные данные',
+                Response::HTTP_BAD_REQUEST
+            );
+
+        $user = $entityManager->getRepository(User::class)->find((int)$user_id);
+
+        $user->setIsBlocked(true);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute("getPostList");
     }
 }
